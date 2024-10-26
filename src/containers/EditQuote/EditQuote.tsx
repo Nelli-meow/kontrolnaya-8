@@ -19,7 +19,6 @@ const EditQuote = () => {
 
       if(response.data) {
         setQuote(response.data);
-        console.log(response.data)
       }
     } catch(e) {
       console.log(e);
@@ -45,12 +44,22 @@ const EditQuote = () => {
 
   }
 
-
   useEffect(() => {
     if(params.idQuote) {
       void fetchOneQuote(params.idQuote);
     }
   },[params.idQuote, fetchOneQuote]);
+
+  const deleteQuote = async () => {
+    if (params.idQuote) {
+      try {
+        await axiosApi.delete(`quotes/${params.idQuote}.json`);
+        navigate('/');
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   return (
     <div>

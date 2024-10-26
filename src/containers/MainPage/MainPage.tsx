@@ -6,6 +6,7 @@ import { IQuotes, IQuotesApi } from '../../types';
 import QuoteItem from '../../components/QuoteItem/QuoteItem.tsx';
 import Loader from '../../components/UI/Loader.tsx';
 
+
 const MainPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [quotes, setQuotes] = useState<IQuotes[]>([]);
@@ -33,21 +34,34 @@ const MainPage = () => {
 
   }, []);
 
+  const deleteQuote = async (id: string) => {
+    try {
+      await axiosApi.delete(`quotes/${id}.json`);
+      setQuotes((prevQuotes) => prevQuotes.filter((quote) => quote.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     void fetchData();
   }, [fetchData]);
 
   return (
     <div className="container d-flex flex-column justify-content-center mt-5">
-      <Categories />
+      <Categories/>
       {loading ? (
-        <Loader />
+        <Loader/>
+      ) : quotes.length === 0 ? (
+        <p className="text-center m-5">No posts :(</p>
       ) : (
-        quotes.map((quote) => (
-          <div key={quote.id} className="m-3">
-            <QuoteItem quote={quote} />
-          </div>
-        ))
+        <>
+          {quotes.map((quote) => (
+            <div key={quote.id} className="m-3">
+              <QuoteItem quote={quote} onDelete={deleteQuote} />
+            </div>
+          ))}
+        </>
       )}
     </div>
   );

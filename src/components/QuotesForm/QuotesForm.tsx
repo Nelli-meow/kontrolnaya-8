@@ -10,22 +10,22 @@ const initialFrom = {
 }
 
 interface Props {
-  submitForm: (quote: IQuotes) => void;
-  quoteToEdit?: IQuote;
+  submitForm: (quote: IQuotes) => void,
+  quoteToEdit?: IQuote,
 }
 
-const QuotesForm: React.FC<Props> = ({submitForm,quoteToEdit}) => {
+const QuotesForm: React.FC<Props> = ({submitForm, quoteToEdit}) => {
   const [quote, setQuote] = useState<IQuote>({...initialFrom});
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if(quoteToEdit) {
+    if (quoteToEdit) {
       setQuote(prevState => ({
         ...prevState,
         ...quoteToEdit,
       }));
     }
-  },[quoteToEdit])
+  }, [quoteToEdit])
 
   const category = [
     {title: 'Star Wars', id: 'star-wars'},
@@ -36,7 +36,7 @@ const QuotesForm: React.FC<Props> = ({submitForm,quoteToEdit}) => {
   ];
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
 
     setQuote(prevState => ({
       ...prevState,
@@ -48,7 +48,7 @@ const QuotesForm: React.FC<Props> = ({submitForm,quoteToEdit}) => {
     e.preventDefault();
     setLoading(true);
 
-    if(!quote.author || !quote.text || !quote.category) {
+    if (!quote.author || !quote.text || !quote.category) {
       alert('Don\'t leave fields blank');
     } else {
       setQuote({...initialFrom});
@@ -60,7 +60,7 @@ const QuotesForm: React.FC<Props> = ({submitForm,quoteToEdit}) => {
 
   return (
     loading ? (
-      <Loader />
+      <Loader/>
     ) : (
       <div className="container mt-5">
         <h2>{quoteToEdit ? 'Edit' : 'Submit new'} quote</h2>
@@ -101,7 +101,7 @@ const QuotesForm: React.FC<Props> = ({submitForm,quoteToEdit}) => {
               aria-label="Small select example"></textarea>
           </div>
           <button type="submit" className="btn btn-outline-info mt-2">
-             {quoteToEdit ? 'Edit' : 'Save'}
+            {quoteToEdit ? 'Edit' : 'Save'}
           </button>
         </form>
       </div>
