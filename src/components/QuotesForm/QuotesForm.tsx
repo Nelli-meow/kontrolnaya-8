@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IQuote, IQuotes } from '../../types';
 import Loader from '../UI/Loader.tsx';
 
@@ -11,11 +11,21 @@ const initialFrom = {
 
 interface Props {
   submitForm: (quote: IQuotes) => void;
+  quoteToEdit?: IQuote;
 }
 
-const QuotesForm: React.FC<Props> = ({submitForm}) => {
+const QuotesForm: React.FC<Props> = ({submitForm,quoteToEdit}) => {
   const [quote, setQuote] = useState<IQuote>({...initialFrom});
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if(quoteToEdit) {
+      setQuote(prevState => ({
+        ...prevState,
+        ...quoteToEdit,
+      }));
+    }
+  },[quoteToEdit])
 
   const category = [
     {title: 'Star Wars', id: 'star-wars'},
@@ -53,7 +63,7 @@ const QuotesForm: React.FC<Props> = ({submitForm}) => {
       <Loader />
     ) : (
       <div className="container mt-5">
-        <h2>Submit new quote</h2>
+        <h2>{quoteToEdit ? 'Edit' : 'Submit new'} quote</h2>
         <form onSubmit={onSubmitForm}>
           <div className="my-3">
             <label htmlFor="Category">Category</label>
@@ -91,7 +101,7 @@ const QuotesForm: React.FC<Props> = ({submitForm}) => {
               aria-label="Small select example"></textarea>
           </div>
           <button type="submit" className="btn btn-outline-info mt-2">
-            Save
+             {quoteToEdit ? 'Edit' : 'Save'}
           </button>
         </form>
       </div>

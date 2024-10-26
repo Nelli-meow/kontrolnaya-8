@@ -15,7 +15,6 @@ const MainPage = () => {
 
     try {
       const response = await axiosApi.get<IQuotesApi>('quotes.json');
-      console.log(response.data);
 
       if(response.data) {
         const quotesFromApi = Object.keys(response.data).map(quoteKey => {
@@ -24,7 +23,6 @@ const MainPage = () => {
             ...response.data[quoteKey],
           }
         });
-        console.log(quotesFromApi);
         setQuotes(quotesFromApi);
       }
     } catch (e){
