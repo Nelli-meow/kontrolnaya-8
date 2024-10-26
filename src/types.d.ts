@@ -6,8 +6,11 @@ export interface IQuote {
 
 export interface IQuotes {
   id: string;
-  author: string,
-  category: string,
+  author: string;
+  category: string;
   text: string,
 }
 
+export interface IQuotesApi {
+  [id: string]: IQuotes;
+}

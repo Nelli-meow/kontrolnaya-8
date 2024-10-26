@@ -38,7 +38,7 @@ const QuotesForm: React.FC<Props> = ({submitForm}) => {
     e.preventDefault();
     setLoading(true);
 
-    if(!quote.author.length || !quote.text.length || !quote.category.length) {
+    if(!quote.author || !quote.text || !quote.category) {
       alert('Don\'t leave fields blank');
     } else {
       setQuote({...initialFrom});
