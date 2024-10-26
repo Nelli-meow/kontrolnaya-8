@@ -50,17 +50,6 @@ const EditQuote = () => {
     }
   },[params.idQuote, fetchOneQuote]);
 
-  const deleteQuote = async () => {
-    if (params.idQuote) {
-      try {
-        await axiosApi.delete(`quotes/${params.idQuote}.json`);
-        navigate('/');
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
   return (
     <div>
       {loading ? <Loader/> :

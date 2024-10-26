@@ -11,10 +11,11 @@ const App = () => {
     <>
         <Header/>
         <Routes>
-            <Route path="/" element={<MainPage/>}/>
-            <Route path="/quotes" element={<MainPage/>}/>
-            <Route path="/add-quote" element={<NewQuote/>}/>
+          <Route path="/" element={<MainPage/>}/>
+          <Route path="/quotes" element={<MainPage/>}/>
+          <Route path="/add-quote" element={<NewQuote/>}/>
           <Route path="/quotes/:idQuote/edit" element={<EditQuote/>}/>
+          <Route path="/quotes/:category" element={<MainPage />} />
           <Route path="*" element={<p className="text-center m-5">Page is not found :(</p>}/>
         </Routes>
     </>

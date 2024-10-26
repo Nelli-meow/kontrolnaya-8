@@ -28,11 +28,11 @@ const QuotesForm: React.FC<Props> = ({submitForm, quoteToEdit}) => {
   }, [quoteToEdit])
 
   const category = [
-    {title: 'Star Wars', id: 'star-wars'},
-    {title: 'Famous people', id: 'Famous people'},
-    {title: 'Saying', id: 'Saying'},
-    {title: 'Humour', id: 'Humour'},
-    {title: 'Motivation', id: 'Motivation'},
+    { title: 'Star Wars', id: 'star-wars' },
+    { title: 'Famous people', id: 'famous-people' },
+    { title: 'Saying', id: 'saying' },
+    { title: 'Humour', id: 'humour' },
+    { title: 'Motivation', id: 'motivation' },
   ];
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
