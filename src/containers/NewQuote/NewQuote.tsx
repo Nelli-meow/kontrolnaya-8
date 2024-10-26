@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../../axiosAPI.ts';
 import { useState } from 'react';
 import { IQuotes } from '../../types';
+import Loader from '../../components/UI/Loader.tsx';
 
 const NewQuote = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -18,12 +19,13 @@ const NewQuote = () => {
       console.log(e);
     } finally {
       setLoading(false);
+      alert('Quote has been added');
     }
   }
 
   return (
     <div>
-      <QuotesForm submitForm={submitForm}/>
+      {loading ? <Loader/> :<QuotesForm submitForm={submitForm}/>}
     </div>
   );
 };

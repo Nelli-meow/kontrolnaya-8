@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { IQuote, IQuotes } from '../../types';
-import axiosAPI from '../../axiosAPI.ts';
+import Loader from '../UI/Loader.tsx';
 
 const initialFrom = {
   author: '',
@@ -15,6 +15,7 @@ interface Props {
 
 const QuotesForm: React.FC<Props> = ({submitForm}) => {
   const [quote, setQuote] = useState<IQuote>({...initialFrom});
+  const [loading, setLoading] = useState<boolean>(false);
 
   const category = [
     {title: 'Star Wars', id: 'star-wars'},
@@ -35,6 +36,7 @@ const QuotesForm: React.FC<Props> = ({submitForm}) => {
 
   const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     if(!quote.author.length || !quote.text.length || !quote.category.length) {
       alert('Don\'t leave fields blank');
@@ -43,52 +45,57 @@ const QuotesForm: React.FC<Props> = ({submitForm}) => {
       submitForm({...quote});
       console.log(quote);
     }
+    setLoading(false);
   }
 
   return (
-    <div className="container mt-5">
-      <h2>Submit new quote</h2>
-      <form onSubmit={onSubmitForm}>
-        <div className="my-3">
-          <label htmlFor="Category">Category</label>
-          <select
-            name="category"
-            value={quote.category}
-            onChange={onChangeField}
-            className="form-select form-select-sm"
-            aria-label="Small select example">
-            <option value="" disabled>Select category</option>
-            {category.map(category => (
-              <option
-                key={category.id}
-                value={category.id}
-              >{category.title}</option>
-            ))}
-          </select>
-        </div>
-        <div className="my-3">
-        <label htmlFor="Author">Author</label>
-          <input
-            value={quote.author}
-            name="author"
-            onChange={onChangeField}
-            className="form-select form-select-sm"
-            aria-label="Small select example"></input>
-        </div>
-        <div className="my-3">
-          <label htmlFor="text">Quote text</label>
-          <textarea
-            value={quote.text}
-            name="text"
-            onChange={onChangeField}
-            className="form-select form-select-sm"
-            aria-label="Small select example"></textarea>
-        </div>
-        <button type="submit" className="btn btn-outline-info mt-2">
-          Save
-        </button>
-      </form>
-    </div>
+    loading ? (
+      <Loader />
+    ) : (
+      <div className="container mt-5">
+        <h2>Submit new quote</h2>
+        <form onSubmit={onSubmitForm}>
+          <div className="my-3">
+            <label htmlFor="Category">Category</label>
+            <select
+              name="category"
+              value={quote.category}
+              onChange={onChangeField}
+              className="form-select form-select-sm"
+              aria-label="Small select example">
+              <option value="" disabled>Select category</option>
+              {category.map(category => (
+                <option
+                  key={category.id}
+                  value={category.id}
+                >{category.title}</option>
+              ))}
+            </select>
+          </div>
+          <div className="my-3">
+            <label htmlFor="Author">Author</label>
+            <input
+              value={quote.author}
+              name="author"
+              onChange={onChangeField}
+              className="form-select form-select-sm"
+              aria-label="Small select example"></input>
+          </div>
+          <div className="my-3">
+            <label htmlFor="text">Quote text</label>
+            <textarea
+              value={quote.text}
+              name="text"
+              onChange={onChangeField}
+              className="form-select form-select-sm"
+              aria-label="Small select example"></textarea>
+          </div>
+          <button type="submit" className="btn btn-outline-info mt-2">
+            Save
+          </button>
+        </form>
+      </div>
+    )
   );
 };
 
