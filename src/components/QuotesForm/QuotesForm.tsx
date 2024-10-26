@@ -53,7 +53,6 @@ const QuotesForm: React.FC<Props> = ({submitForm, quoteToEdit}) => {
     } else {
       setQuote({...initialFrom});
       submitForm({...quote});
-      console.log(quote);
     }
     setLoading(false);
   }

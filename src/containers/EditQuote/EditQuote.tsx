@@ -41,7 +41,6 @@ const EditQuote = () => {
     } finally {
       setLoading(false);
     }
-
   }
 
   useEffect(() => {
